@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: Icebev
+  description: Icebev API - Controle de refrigeradores e consignados
+spec:
+  type: openapi
+  lifecycle: production
+  owner: icebev-team
+  definition:
+    $text: https://github.com/APIs-guru/openapi-directory/blob/master/APIs/archive.org/search/1.0.0/openapi.yaml
