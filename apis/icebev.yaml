@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: Icebev
-  description: Icebev API - Controle de refrigeradores e consignados
+  description: Icebev API - Controle de refrigeradores e consignadoss
 spec:
   type: openapi
   lifecycle: production
