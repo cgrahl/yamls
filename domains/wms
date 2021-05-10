@@ -4,4 +4,4 @@ metadata:
   name: wms
   description: Tudo que for relacionado ao WMS
 spec:
-  owner: time-wms
+  owner: wms
