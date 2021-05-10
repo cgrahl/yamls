@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: log-co
+  description: LOG.CO
+spec:
+  type: sub-department
+  profile:
+    displayName: Log.co
+    email: log-co@ambevtech.com.br
+    picture: https://avatars.dicebear.com/api/identicon/backstage@example.com.svg?background=%23fff&margin=25
+  parent: ambevtech
+  children: [wms, picking]
