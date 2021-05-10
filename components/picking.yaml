@@ -4,7 +4,8 @@ metadata:
   name: picking
   description: O sistema de picking bla bla bla
   annotations:
-    - backstage.io/code-coverage: true  
+    backstage.io/code-coverage: true
+    backstage.io/techdocs-ref: https://guides.ambevdevs.com.br/pt-br/equipes/logco/TEC-LOG/Criar_Doc_Wiki
   links:
     - url: https://github.com/cgrahl/yamls/blob/main/apis/picking-definition.yaml
       title: GitHub Repo
