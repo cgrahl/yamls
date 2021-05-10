@@ -2,8 +2,9 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: picking
-  # This is an extra long description
   description: O sistema de picking bla bla bla
+  annotations:
+    backstage.io/code-coverage: true  
   links:
     - url: https://github.com/cgrahl/yamls/blob/main/apis/picking-definition.yaml
       title: GitHub Repo
