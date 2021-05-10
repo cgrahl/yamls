@@ -1,0 +1,31 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: Ambevtech
+  description: A organização Ambevtech
+  links:
+    - url: http://www.ambevtech.com.br/
+      title: Website
+    - url: https://guides.ambevdevs.com.br/
+      title: Guia do Desenvolvedor da galáxia
+spec:
+  type: organization
+  profile:
+    displayName: Ambevtech
+    email: ambevtech@ambevtech.com.br
+    picture: https://ambevtech.com.br/wp-content/themes/ambevtech/assets/img/ambev-tech-logo.svg
+  children: [log-co, tecx, brewtech, plataforma, functions, martech]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: times
+  description: Relação dos times da companhia
+spec:
+  targets:
+    - ./log-co.yaml
+    - ./tecx.yaml
+    - ./brewtech.yaml
+    - ./plataforma.yaml
+    - ./functions.yaml
+    - ./martech.yaml
