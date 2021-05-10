@@ -1,0 +1,1718 @@
+openapi: 3.0.1
+info:
+  title: Picking API
+  description: Picking
+  version: v1
+servers:
+  - url: /api/picking
+paths:
+  /history:
+    get:
+      tags:
+        - ChangeHistory
+      parameters:
+        - name: PageNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: HistoryType
+          in: query
+          schema:
+            $ref: '#/components/schemas/ChangeHistoryType'
+        - name: Search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoryDtoPagedDataModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /configurations:
+    get:
+      tags:
+        - Configuration
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarehouseConfigurationModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+    post:
+      tags:
+        - Configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/ConfigurationModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /health:
+    get:
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Success
+  '/items/{id}':
+    get:
+      tags:
+        - Item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /loads/pending:
+    get:
+      tags:
+        - Load
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoadModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  '/locations/{id}':
+    get:
+      tags:
+        - Location
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /occurrences:
+    post:
+      tags:
+        - Occurrences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OccurrenceModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/OccurrenceModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/OccurrenceModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /user-enabled-weight-picking:
+    post:
+      tags:
+        - UserWeighingMachine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+                format: uuid
+          text/json:
+            schema:
+              type: array
+              items:
+                type: string
+                format: uuid
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: string
+                format: uuid
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+    get:
+      tags:
+        - UserWeighingMachine
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWeighingMachineResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /user-enabled-weight-picking/paginated:
+    get:
+      tags:
+        - UserWeighingMachine
+      parameters:
+        - name: Search
+          in: query
+          schema:
+            type: string
+        - name: PageNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: HistoryType
+          in: query
+          schema:
+            $ref: '#/components/schemas/ChangeHistoryType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWeighingMachineResponsePagedDataModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /weighing-machine:
+    get:
+      tags:
+        - WeighingMachine
+      summary: "Action para retorno das balanças disponíveis ou todas elas. Vide parametrização. <br />\r\n           TODO: Remover parametrização após atualização de todos os apps do Separação abaixo de 0.7.035"
+      parameters:
+        - name: All
+          in: query
+          schema:
+            type: boolean
+        - name: SearchTerm
+          in: query
+          schema:
+            type: string
+        - name: PageNumber
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: PageSize
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: HistoryType
+          in: query
+          schema:
+            $ref: '#/components/schemas/ChangeHistoryType'
+        - name: Search
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeighingMachineModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+    post:
+      tags:
+        - WeighingMachine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeighingMachineModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/WeighingMachineModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/WeighingMachineModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /weighing-machine/available:
+    get:
+      tags:
+        - WeighingMachine
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeighingMachineModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/weighing-machine/{weighingMachineId}':
+    get:
+      tags:
+        - WeighingMachine
+      parameters:
+        - name: weighingMachineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeighingMachineModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+    put:
+      tags:
+        - WeighingMachine
+      parameters:
+        - name: weighingMachineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WeighingMachineModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/WeighingMachineModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/WeighingMachineModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/weighing-machine/{weighingMachineId}/disable':
+    post:
+      tags:
+        - WeighingMachine
+      parameters:
+        - name: weighingMachineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/weighing-machine/{weighingMachineId}/enable':
+    post:
+      tags:
+        - WeighingMachine
+      parameters:
+        - name: weighingMachineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/weighing-machine/{weighingMachineId}/disassociate':
+    post:
+      tags:
+        - WeighingMachine
+      parameters:
+        - name: weighingMachineId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /weighing-machine/brands:
+    get:
+      tags:
+        - WeighingMachine
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /worktasks/next-task:
+    get:
+      tags:
+        - WorkTask
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkTaskModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server Error
+  /worktasks/associate:
+    put:
+      tags:
+        - WorkTask
+      parameters:
+        - name: loadId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: taskId
+          in: query
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssociateWorkTaskRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AssociateWorkTaskRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AssociateWorkTaskRequest'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /worktasks/pick:
+    put:
+      tags:
+        - WorkTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+      deprecated: true
+  /worktasks/pick-all:
+    put:
+      tags:
+        - WorkTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemCollectionModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemCollectionModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemCollectionModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+      deprecated: true
+  '/worktasks/{taskId}/pick':
+    put:
+      tags:
+        - WorkTask
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/worktasks/{taskId}/pick-all':
+    put:
+      tags:
+        - WorkTask
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemCollectionModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemCollectionModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PickPalletItemCollectionModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/worktasks/{taskId}/possible-destinations/operation/{operationType}':
+    get:
+      tags:
+        - WorkTask
+      parameters:
+        - name: taskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: operationType
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/OperationType'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AvailableLocationModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  /worktasks/finalize:
+    put:
+      tags:
+        - WorkTask
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinalizePalletModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FinalizePalletModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/FinalizePalletModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/worktasks/{workTaskId}/continue-pallet':
+    put:
+      tags:
+        - WorkTask
+      parameters:
+        - name: workTaskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/worktasks/{workTaskId}/disassociate':
+    post:
+      tags:
+        - WorkTask
+      parameters:
+        - name: workTaskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisassociateWorkTaskModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DisassociateWorkTaskModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/DisassociateWorkTaskModel'
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/worktasks/{workTaskId}/cancel':
+    post:
+      tags:
+        - WorkTask
+      parameters:
+        - name: workTaskId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/worktasks/get-by-load/{loadId}':
+    get:
+      tags:
+        - WorkTask
+      parameters:
+        - name: loadId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkTasksResponseModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+  '/zones/{id}':
+    get:
+      tags:
+        - Zone
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ZoneModel'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '415':
+          description: Client Error
+        '500':
+          description: Server Error
+components:
+  schemas:
+    ChangeHistoryType:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+    HistoryItemDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        property:
+          type: string
+          nullable: true
+        oldValue:
+          type: string
+          nullable: true
+        newValue:
+          type: string
+          nullable: true
+      additionalProperties: false
+    HistoryDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userName:
+          type: string
+          nullable: true
+        occurrenceDate:
+          type: string
+          format: date-time
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryItemDto'
+          nullable: true
+      additionalProperties: false
+    HistoryDtoPagedDataModel:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryDto'
+          nullable: true
+        pageSize:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        totalCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    WarehouseConfigurationModel:
+      type: object
+      properties:
+        userCanChangePickingRegion:
+          type: boolean
+        userCanChooseLoad:
+          type: boolean
+      additionalProperties: false
+    ConfigurationModel:
+      type: object
+      properties:
+        configurationId:
+          type: string
+          format: uuid
+          nullable: true
+        warehouseId:
+          type: string
+          format: uuid
+        userCanChooseLoad:
+          type: boolean
+      additionalProperties: false
+    ItemType:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+    ItemUnitOfMeasurement:
+      type: object
+      properties:
+        controlUnit:
+          type: boolean
+          readOnly: true
+        conversionFactor:
+          type: integer
+          format: int32
+          readOnly: true
+        pickingUnit:
+          type: boolean
+          readOnly: true
+        description:
+          type: string
+          nullable: true
+          readOnly: true
+        code:
+          type: string
+          nullable: true
+          readOnly: true
+        weight:
+          type: number
+          format: double
+          readOnly: true
+        itemId:
+          type: string
+          format: uuid
+          readOnly: true
+        item:
+          allOf:
+            - $ref: '#/components/schemas/Item'
+          nullable: true
+          readOnly: true
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        errors:
+          type: array
+          items:
+            type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    Item:
+      type: object
+      properties:
+        code:
+          type: string
+          nullable: true
+          readOnly: true
+        description:
+          type: string
+          nullable: true
+          readOnly: true
+        shortDescription:
+          type: string
+          nullable: true
+          readOnly: true
+        type:
+          allOf:
+            - $ref: '#/components/schemas/ItemType'
+          readOnly: true
+        itemUnitsOfMeasurement:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemUnitOfMeasurement'
+          nullable: true
+          readOnly: true
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        errors:
+          type: array
+          items:
+            type: string
+          nullable: true
+          readOnly: true
+      additionalProperties: false
+    LoadModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        description:
+          type: string
+          nullable: true
+      additionalProperties: false
+    LocationStockState:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      type: integer
+      format: int32
+    LocationModel:
+      type: object
+      properties:
+        locationId:
+          type: string
+          format: uuid
+        warehouseId:
+          type: string
+          format: uuid
+        code:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        locationTypeId:
+          type: string
+          format: uuid
+        enabled:
+          type: boolean
+        stockState:
+          allOf:
+            - $ref: '#/components/schemas/LocationStockState'
+        defaultLocation:
+          type: boolean
+        sequence:
+          type: integer
+          format: int32
+        zones:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+    PalletType:
+      enum:
+        - 1
+        - 2
+      type: integer
+      format: int32
+    OccurrenceModel:
+      type: object
+      properties:
+        palletId:
+          type: string
+          format: uuid
+        weighingMachineId:
+          type: string
+          format: uuid
+        weighingMachineName:
+          type: string
+          nullable: true
+          readOnly: true
+        itemPalletId:
+          type: string
+          format: uuid
+          nullable: true
+        palletType:
+          allOf:
+            - $ref: '#/components/schemas/PalletType'
+        minimumWeight:
+          type: number
+          format: double
+        realWeight:
+          type: number
+          format: double
+        maximumWeight:
+          type: number
+          format: double
+        expectedWeight:
+          type: number
+          format: double
+        expectedAmount:
+          type: integer
+          format: int32
+        realAmount:
+          type: integer
+          format: int32
+        chapatexAmount:
+          type: integer
+          format: int32
+        cardboardAmount:
+          type: integer
+          format: int32
+        occurrenceType:
+          type: integer
+          format: int32
+        startedWithProduct:
+          type: boolean
+      additionalProperties: false
+    UserWeighingMachineResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        warehouseCode:
+          type: string
+          nullable: true
+      additionalProperties: false
+    UserWeighingMachineResponsePagedDataModel:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserWeighingMachineResponse'
+          nullable: true
+        pageSize:
+          type: integer
+          format: int32
+        pageNumber:
+          type: integer
+          format: int32
+        totalCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    WeighingMachineModel:
+      required:
+        - description
+        - ip
+        - model
+        - port
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          nullable: true
+        warehouseId:
+          type: string
+          format: uuid
+          nullable: true
+        userId:
+          type: string
+          format: uuid
+          nullable: true
+        userAssociated:
+          type: string
+          nullable: true
+        description:
+          type: string
+        ip:
+          type: string
+        port:
+          type: integer
+          format: int32
+        model:
+          type: integer
+          format: int32
+        enabled:
+          type: boolean
+      additionalProperties: false
+    PalletLocationModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+      additionalProperties: false
+    StatusPalletItem:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+    PalletItemModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        itemId:
+          type: string
+          format: uuid
+        code:
+          type: string
+          nullable: true
+        type:
+          allOf:
+            - $ref: '#/components/schemas/ItemType'
+        fromLocation:
+          type: array
+          items:
+            $ref: '#/components/schemas/PalletLocationModel'
+          nullable: true
+        status:
+          allOf:
+            - $ref: '#/components/schemas/StatusPalletItem'
+        description:
+          type: string
+          nullable: true
+        quantity:
+          type: number
+          format: double
+        unitOfMeasurementCode:
+          type: string
+          nullable: true
+        weight:
+          type: number
+          format: double
+        slipSheetQuantity:
+          type: integer
+          format: int32
+          nullable: true
+        cardboardQuantity:
+          type: integer
+          format: int32
+          nullable: true
+        groupSequence:
+          type: integer
+          format: int32
+        pickingTime:
+          type: integer
+          format: int32
+        weightOk:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    WeighAtEndConfigurationModel:
+      type: object
+      properties:
+        weighAtEnd:
+          type: boolean
+        weighTolerance:
+          type: number
+          format: double
+      additionalProperties: false
+    ScaleJackConfigurationModel:
+      type: object
+      properties:
+        weight:
+          type: number
+          format: double
+        palletTolerance:
+          type: number
+          format: double
+        fixedWeightTolerance:
+          type: number
+          format: double
+        weighAtEnd:
+          allOf:
+            - $ref: '#/components/schemas/WeighAtEndConfigurationModel'
+          nullable: true
+      additionalProperties: false
+    EmptiesType:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    EmptiesModel:
+      type: object
+      properties:
+        type:
+          allOf:
+            - $ref: '#/components/schemas/EmptiesType'
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          readOnly: true
+        minimumWeight:
+          type: number
+          format: double
+          readOnly: true
+        maximumWeight:
+          type: number
+          format: double
+          readOnly: true
+      additionalProperties: false
+    EmptiesConfigurationModel:
+      type: object
+      properties:
+        pbr1:
+          allOf:
+            - $ref: '#/components/schemas/EmptiesModel'
+          nullable: true
+        pbr2:
+          allOf:
+            - $ref: '#/components/schemas/EmptiesModel'
+          nullable: true
+        slipSheet:
+          allOf:
+            - $ref: '#/components/schemas/EmptiesModel'
+          nullable: true
+        cardBoard:
+          allOf:
+            - $ref: '#/components/schemas/EmptiesModel'
+          nullable: true
+      additionalProperties: false
+    ItemListingType:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+    PickingConfigurationModel:
+      type: object
+      properties:
+        hideSlipSheet:
+          type: boolean
+          readOnly: true
+        blindPick:
+          type: boolean
+          readOnly: true
+        itemListingType:
+          allOf:
+            - $ref: '#/components/schemas/ItemListingType'
+          readOnly: true
+      additionalProperties: false
+    WorkTaskModel:
+      type: object
+      properties:
+        documentNumber:
+          type: string
+          nullable: true
+        deliveryDate:
+          type: string
+          format: date-time
+          nullable: true
+        taskId:
+          type: string
+          format: uuid
+        palletId:
+          type: string
+          format: uuid
+          nullable: true
+        palletDescription:
+          type: string
+          nullable: true
+        fromLocation:
+          allOf:
+            - $ref: '#/components/schemas/PalletLocationModel'
+          nullable: true
+        isPalletized:
+          type: boolean
+        zoneId:
+          type: string
+          format: uuid
+          nullable: true
+        generalZoneId:
+          type: string
+          format: uuid
+          nullable: true
+        palletItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/PalletItemModel'
+          nullable: true
+        scaleJackConfiguration:
+          allOf:
+            - $ref: '#/components/schemas/ScaleJackConfigurationModel'
+          nullable: true
+        emptiesConfiguration:
+          allOf:
+            - $ref: '#/components/schemas/EmptiesConfigurationModel'
+          nullable: true
+        pickingConfiguration:
+          allOf:
+            - $ref: '#/components/schemas/PickingConfigurationModel'
+          nullable: true
+        palletType:
+          allOf:
+            - $ref: '#/components/schemas/PalletType'
+          nullable: true
+        startedWithProduct:
+          type: boolean
+          nullable: true
+        pickingTime:
+          type: integer
+          format: int32
+        expectedWeight:
+          type: number
+          format: double
+          nullable: true
+        realWeight:
+          type: number
+          format: double
+          nullable: true
+        isGeneral:
+          type: boolean
+        weightOk:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    AssociateWorkTaskRequest:
+      type: object
+      properties:
+        weighingMachineId:
+          type: string
+          format: uuid
+          nullable: true
+      additionalProperties: false
+    WeightStatus:
+      enum:
+        - 0
+        - 1
+        - 2
+      type: integer
+      format: int32
+    PickPalletItemModel:
+      type: object
+      properties:
+        palletItemId:
+          type: string
+          format: uuid
+        rtls:
+          type: boolean
+        locationId:
+          type: string
+          format: uuid
+          nullable: true
+        slipSheetQuantity:
+          type: integer
+          format: int32
+          nullable: true
+        cardboardQuantity:
+          type: integer
+          format: int32
+          nullable: true
+        realWeight:
+          type: number
+          format: double
+          nullable: true
+        expectedWeight:
+          type: number
+          format: double
+          nullable: true
+        minimumWeightExpected:
+          type: number
+          format: double
+          nullable: true
+        maximumWeightExpected:
+          type: number
+          format: double
+          nullable: true
+        weightStatus:
+          allOf:
+            - $ref: '#/components/schemas/WeightStatus'
+          nullable: true
+        pickingTime:
+          type: integer
+          format: int32
+        workingAssetsWeight:
+          type: number
+          format: double
+      additionalProperties: false
+    PickPalletItemCollectionModel:
+      type: object
+      properties:
+        workTaskId:
+          type: string
+          format: uuid
+        palletItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/PickPalletItemModel'
+          nullable: true
+      additionalProperties: false
+    OperationType:
+      enum:
+        - 0
+        - 1
+      type: integer
+      format: int32
+    AvailableLocationModel:
+      type: object
+      properties:
+        locationId:
+          type: string
+          format: uuid
+        code:
+          type: string
+          nullable: true
+        recommended:
+          type: boolean
+      additionalProperties: false
+    FinalizePalletModel:
+      type: object
+      properties:
+        workTaskId:
+          type: string
+          format: uuid
+        toLocationId:
+          type: string
+          format: uuid
+        slipSheetAmount:
+          type: integer
+          format: int32
+        cardboardAmount:
+          type: integer
+          format: int32
+        pickingTime:
+          type: integer
+          format: int32
+        palletType:
+          type: integer
+          format: int32
+        palletStartedWithProduct:
+          type: boolean
+        realWeight:
+          type: number
+          format: double
+          nullable: true
+        expectedWeight:
+          type: number
+          format: double
+          nullable: true
+        weightOk:
+          type: boolean
+          nullable: true
+        weighingMachineId:
+          type: string
+          format: uuid
+          nullable: true
+        isLoadingStageRecommendationActive:
+          type: boolean
+      additionalProperties: false
+    DisassociateWorkTaskModel:
+      type: object
+      properties:
+        toLocationId:
+          type: string
+          format: uuid
+          nullable: true
+        palletType:
+          allOf:
+            - $ref: '#/components/schemas/PalletType'
+          nullable: true
+        startedWithProduct:
+          type: boolean
+        pickingTime:
+          type: integer
+          format: int32
+        itemPickingTime:
+          type: integer
+          format: int32
+        palletItemId:
+          type: string
+          format: uuid
+        expectedWeight:
+          type: number
+          format: double
+          nullable: true
+        realWeight:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    WorkTaskStatus:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      format: int32
+    TasksResponseModel:
+      type: object
+      properties:
+        taskId:
+          type: string
+          format: uuid
+        quantityItem:
+          type: integer
+          format: int32
+          nullable: true
+        itemDescription:
+          type: string
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+        taskStatus:
+          allOf:
+            - $ref: '#/components/schemas/WorkTaskStatus'
+        unitOfMeasurementCode:
+          type: string
+          nullable: true
+        assignedByOtherUser:
+          type: boolean
+      additionalProperties: false
+    WorkTasksResponseModel:
+      type: object
+      properties:
+        loadId:
+          type: string
+          format: uuid
+        quantityBulkPallet:
+          type: integer
+          format: int32
+        workTasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/TasksResponseModel'
+          nullable: true
+      additionalProperties: false
+    ZoneModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        zoneId:
+          type: string
+          format: uuid
+        warehouseId:
+          type: string
+          format: uuid
+        name:
+          type: string
+          nullable: true
+        isGeneral:
+          type: boolean
+        locations:
+          type: array
+          items:
+            type: string
+            format: uuid
+          nullable: true
+      additionalProperties: false
+  securitySchemes:
+    Bearer:
+      type: apiKey
+      description: Authorization Token
+      name: Authorization
+      in: header
+security:
+  - Bearer: []
