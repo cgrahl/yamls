@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: picking
+  description: Sistema de picking
+spec:
+  owner: picking
+  domain: picking
