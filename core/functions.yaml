@@ -10,3 +10,4 @@ spec:
     email: functions@ambevtech.com.br
     picture: https://avatars.dicebear.com/api/identicon/backstage@example.com.svg?background=%23fff&margin=25
   parent: ambevtech
+  children: []
