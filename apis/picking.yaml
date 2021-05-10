@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: Picking
+  description: Picking API 
+spec:
+  type: openapi
+  lifecycle: production
+  owner: picking
+  definition:
+    $text: https://github.com/cgrahl/yamls/blob/main/apis/picking-definition.yaml
