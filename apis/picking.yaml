@@ -7,5 +7,6 @@ spec:
   type: openapi
   lifecycle: production
   owner: picking
+  system: picking  
   definition:
     $text: https://github.com/cgrahl/yamls/blob/main/apis/picking-definition.yaml
