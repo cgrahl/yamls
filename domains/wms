@@ -1,0 +1,7 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: wms
+  description: Tudo que for relacionado ao WMS
+spec:
+  owner: time-wms
