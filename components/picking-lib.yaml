@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: picking-sdk
+  description: SDK do Picking
+spec:
+  type: library
+  lifecycle: experimental
+  owner: picking
+  system: picking
