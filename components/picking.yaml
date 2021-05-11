@@ -27,13 +27,12 @@ metadata:
       icon: web
     - url: https://example.com/alert
       title: Alerts
-      icon: alert  
-  annotations:
-    backstage.io/techdocs-ref: https://guides.ambevdevs.com.br/pt-br/equipes/logco/TEC-LOG/Criar_Doc_Wiki
-  links:
+      icon: alert
     - url: https://github.com/cgrahl/yamls/blob/main/apis/picking-definition.yaml
       title: GitHub Repo
-      icon: github
+      icon: github      
+  annotations:
+    backstage.io/techdocs-ref: https://guides.ambevdevs.com.br/pt-br/equipes/logco/TEC-LOG/Criar_Doc_Wiki
 spec:
   type: service
   lifecycle: experimental
