@@ -15,54 +15,54 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: amelia.park
+  name: amelia.park1
 spec:
   profile:
-    displayName: Amelia Park
-    email: amelia-park@example.com
+    displayName: Amelia Park1
+    email: amelia-park1@example.com
     picture: https://avatars.dicebear.com/api/avataaars/amelia-park@example.com.svg?background=%23fff
   memberOf: [picking]
 ---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: colette.brock
+  name: colette.brock1
 spec:
   profile:
-    displayName: Colette Brock
-    email: colette-brock@example.com
+    displayName: Colette Brock1
+    email: colette-brock1@example.com
     picture: https://avatars.dicebear.com/api/avataaars/colette-brock@example.com.svg?background=%23fff
   memberOf: [picking]
 ---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: jenny.doe
+  name: jenny.doe1
 spec:
   profile:
-    displayName: Jenny Doe
-    email: jenny-doe@example.com
+    displayName: Jenny Doe1
+    email: jenny-doe1@example.com
     picture: https://avatars.dicebear.com/api/avataaars/jenny-doe@example.com.svg?background=%23fff
   memberOf: [picking]
 ---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: jonathon.page
+  name: jonathon.page1
 spec:
   profile:
-    displayName: Jonathon Page
-    email: jonathon-page@example.com
+    displayName: Jonathon Page1
+    email: jonathon-page1@example.com
     picture: https://avatars.dicebear.com/api/avataaars/jonathon-page@example.com.svg?background=%23fff
   memberOf: [picking]
 ---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: justine.barrow
+  name: justine.barrow1
 spec:
   profile:
-    displayName: Justine Barrow
-    email: justine-barrow@example.com
+    displayName: Justine Barrow1
+    email: justine-barro1w@example.com
     picture: https://avatars.dicebear.com/api/avataaars/justine-barrow@example.com.svg?background=%23fff
   memberOf: [picking]
