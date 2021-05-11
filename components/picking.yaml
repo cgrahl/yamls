@@ -4,7 +4,7 @@ metadata:
   name: picking
   description: O sistema de picking bla bla bla
   tags:
-    - C#
+    - .NET
     - mobile
   links:
     - url: https://example.com/user
