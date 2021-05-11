@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: picking
-  description: O sistema de picking bla bla bla 
+  description: O sistema de picking bla bla bla
   links:
     - url: https://example.com/user
       title: Examples Users
