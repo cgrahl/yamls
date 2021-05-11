@@ -3,9 +3,6 @@ kind: Component
 metadata:
   name: picking
   description: O sistema de picking bla bla bla
-  tags:
-    - .NET
-    - mobile
   links:
     - url: https://example.com/user
       title: Examples Users
