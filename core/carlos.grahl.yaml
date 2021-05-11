@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: carlos.grahl
+spec:
+  profile:
+    displayName: Carlos Augusto Grahl
+    email: carlos.grahl@ambevtech.com.br
+    picture: https://avatars.githubusercontent.com/u/8474097?v=4
+  memberOf: [picking]
